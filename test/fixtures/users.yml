@@ -3,9 +3,13 @@
 one:
   first_name: MyString
   last_name: MyString
-  id_rol: 
+  email: MyString
+  password_digest: MyString
+  rol_id: 1
 
 two:
   first_name: MyString
   last_name: MyString
-  id_rol: 
+  email: MyString
+  password_digest: MyString
+  rol_id: 1

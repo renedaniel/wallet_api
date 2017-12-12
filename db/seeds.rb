@@ -6,30 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-customers = Customer.create(
-  [
-    {
-          first_name: "Daniel",
-          last_name: "Galicia",
-          account: "12345x",
-        },
-    {
-          first_name: "Rene",
-          last_name: "Vazquez",
-          account: "1234225x",
-        },
-  ]
-)
-
 rols = Rol.create(
   [
     {
-          rol_name: "Customer",
-          rol: "c",
-        },
+      name: "Customer",
+    },
     {
-          rol_name: "Admin",
-          rol: "a",
-        },
+      name: "Admin",
+    },
   ]
 )

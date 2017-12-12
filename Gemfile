@@ -42,3 +42,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Custom libraries
 gem 'rack-cors', :require => 'rack/cors'
+gem 'knock'

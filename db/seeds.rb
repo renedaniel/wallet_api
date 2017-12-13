@@ -10,9 +10,11 @@ rols = Rol.create(
   [
     {
       name: "Customer",
+      rol: "c",
     },
     {
       name: "Admin",
+      rol: "a",
     },
   ]
 )

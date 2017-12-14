@@ -18,3 +18,15 @@ rols = Rol.create(
     },
   ]
 )
+
+translations = Translation.create([
+  {
+    key: 'first_name_blank_validation',
+    translation: 'Debe ingresar su nombre',
+  },
+  {
+    key: 'password_blank_validation',
+    translation: 'Debe ingresar su contraseña',
+  },
+
+])

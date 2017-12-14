@@ -3,7 +3,7 @@ module Error::Handler
     puts clazz
     clazz.class_eval do
       rescue_from ActiveRecord::RecordNotFound do |e|
-        respond(:record_not_found, 404, e.to_s)
+        respond(:record_not_found, 500, e.to_s)
       end
       rescue_from StandardError do |e|
         respond(:standard_error, 500, e.to_s)
@@ -22,7 +22,7 @@ module Error::Handler
   def respond(_error, _status, _message)
     render json: {
       status: _status,
-      error: _error,
+      errors: _error,
       message: _message,
     }.as_json
   end

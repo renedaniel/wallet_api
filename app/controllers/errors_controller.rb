@@ -3,7 +3,7 @@ class ErrorsController < ApplicationController
     render json: {
       status: 404,
       error: :not_found,
-      message: 'Where did the 403 errors go',
+      message: 'El recurso no está disponible',
     }, status: 404
   end
 
@@ -11,7 +11,7 @@ class ErrorsController < ApplicationController
     render json: {
       status: 500,
       error: :internal_server_error,
-      message: 'Houston we have a problem',
+      message: 'Ha ocurrido un problema con el servidor, inténtalo más tarde',
     }, status: 500
   end
 end

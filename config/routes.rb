@@ -5,9 +5,12 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :customers
       resources :users
+      post 'is_logged_in' => 'users#get_user_from_jwt'
       post 'user_token' => 'user_token#create'
+      get 'metadata' => 'metadatas#index'
     end
   end
 end
+
+#resources :urls, :only => [:show, :new, :create]

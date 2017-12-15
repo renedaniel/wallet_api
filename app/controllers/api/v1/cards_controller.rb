@@ -5,7 +5,10 @@ class Api::V1::CardsController < ApplicationController
     @card = Card.new(card_params)
     @card.user = User.get_user_from_jwt(jwt_params)
     raise Error::ValidationError.new(@card) unless @card.save
-    @response = {success: true}
+    @response = {
+      id: @card.id,
+      number_mask: @card.number_mask,
+    }
     render_success @response
   end
 

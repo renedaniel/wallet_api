@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: MyString
+  full_name: MyString
+  expiration: MyString
+  cvc: MyString
+  number_mask: MyString
+  user_id: 1
+
+two:
+  number: MyString
+  full_name: MyString
+  expiration: MyString
+  cvc: MyString
+  number_mask: MyString
+  user_id: 1

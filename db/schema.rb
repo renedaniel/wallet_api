@@ -10,16 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171214005452) do
+ActiveRecord::Schema.define(version: 20171215160603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.string "number"
+    t.float "balance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cards", force: :cascade do |t|
+    t.string "number"
+    t.string "full_name"
+    t.string "expiration"
+    t.string "cvc"
+    t.string "number_mask"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "rols", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "rol"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer "user_id"
+    t.float "amount"
+    t.float "fixed_rate"
+    t.float "commission_amount"
+    t.float "commission_percent"
+    t.integer "account_id"
+    t.string "another_account"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "translations", force: :cascade do |t|
@@ -37,6 +67,7 @@ ActiveRecord::Schema.define(version: 20171214005452) do
     t.integer "rol_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "account_id"
   end
 
 end

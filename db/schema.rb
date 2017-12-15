@@ -10,20 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171215160603) do
+ActiveRecord::Schema.define(version: 20171215173719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
-    t.string "number"
+    t.string "account_number"
     t.float "balance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "cards", force: :cascade do |t|
-    t.string "number"
+    t.string "card_number"
     t.string "full_name"
     t.string "expiration"
     t.string "cvc"
@@ -67,7 +68,6 @@ ActiveRecord::Schema.define(version: 20171215160603) do
     t.integer "rol_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "account_id"
   end
 
 end

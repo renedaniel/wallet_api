@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users
-      post 'is_logged_in' => 'users#get_user_from_jwt'
+      resources :urls, :only => [:create, :delete]
+      post 'is_logged_in' => 'users#login_user_from_jwt'
       post 'user_token' => 'user_token#create'
       get 'metadata' => 'metadatas#index'
     end
@@ -14,3 +15,4 @@ Rails.application.routes.draw do
 end
 
 #resources :urls, :only => [:show, :new, :create]
+#resources :cards :only => [:create, :get, :delete]

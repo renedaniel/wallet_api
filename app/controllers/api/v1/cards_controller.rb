@@ -1,7 +1,9 @@
 class Api::V1::CardsController < ApplicationController
+  before_action :authenticate_user
+
   def create
     @card = Card.new(card_params)
-    @card.user = User.find(user_params)
+    @card.user = User.get_user_from_jwt(jwt_params)
     raise Error::ValidationError.new(@card) unless @card.save
     @response = {success: true}
     render_success @response
@@ -13,10 +15,10 @@ class Api::V1::CardsController < ApplicationController
   private
 
   def card_params
-    params.require(:card).permit(:number, :full_name, :expiration, :cvc, :number_mask)
+    params.require(:card).permit(:card_number, :full_name, :expiration, :cvc)
   end
 
-  def user_params
-    params.require(:user_id)
+  def jwt_params
+    params.require(:jwt)
   end
 end

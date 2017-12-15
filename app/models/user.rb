@@ -4,6 +4,7 @@ class User < ApplicationRecord
   #Relations
   belongs_to :rol, foreign_key: 'rol_id'
   has_one :account
+  has_many :cards
   #Validations
   #TODO more validations
   validates :first_name, presence: true
@@ -12,14 +13,25 @@ class User < ApplicationRecord
   validates :password, presence: true
   validates :password_confirmation, presence: true
 
-  def get_data()
+  def self.get_user_from_jwt(jwt)
+    @decoded_token = JWT.decode jwt, Rails.application.secrets.secret_key_base, true, {:algorithm => 'HS256'}
+    @user_id = @decoded_token[0]['sub']
+    User.find(@user_id)
+  end
+
+  def get_data
     @account = self.account
+    #TODO self.cards How to filter data ??? or look for join
+    @cards = Card.where("user_id = ?", self.id).select('id, number_mask')
     {
-      id: self.id,
       first_name: self.first_name,
       last_name: self.last_name,
       email: self.email,
-      account: {account_number: @account.account_number},
+      account: {
+        balance: @account.balance,
+        account_number: @account.account_number,
+      },
+      cards: @cards,
     }
   end
 end

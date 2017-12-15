@@ -13,15 +13,8 @@ module Api::V1
     end
 
     def login_user_from_jwt
-      @decoded_token = JWT.decode jwt_params, Rails.application.secrets.secret_key_base, true, {:algorithm => 'HS256'}
-      @user_id = @decoded_token[0]['sub']
-      @user = User.find(@user_id).get_data
-      render_success @user
-    end
-
-    def get_cards
-      @user = User.new(user_id_params)
-      render_success @user.cards
+      @user = User.get_user_from_jwt(jwt_params)
+      render_success @user.get_data
     end
 
     private
@@ -32,10 +25,6 @@ module Api::V1
 
     def jwt_params
       params.require(:jwt)
-    end
-
-    def user_id_params
-      params.require(:user_id)
     end
   end
 end

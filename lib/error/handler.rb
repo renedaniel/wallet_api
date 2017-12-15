@@ -6,6 +6,7 @@ module Error::Handler
         respond(:record_not_found, 500, e.to_s)
       end
       rescue_from StandardError do |e|
+        puts e
         respond(:standard_error, 500, e.to_s)
       end
       rescue_from GenericError do |e|

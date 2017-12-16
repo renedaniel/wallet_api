@@ -13,6 +13,11 @@ class Api::V1::CardsController < ApplicationController
   end
 
   def destroy
+    Card.find(card_id_params).delete
+    @response = {
+      success: true,
+    }
+    render_success @response
   end
 
   private
@@ -23,5 +28,9 @@ class Api::V1::CardsController < ApplicationController
 
   def jwt_params
     params.require(:jwt)
+  end
+
+  def card_id_params
+    params.require(:card_id)
   end
 end

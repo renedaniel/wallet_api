@@ -11,4 +11,8 @@ class ApplicationController < ActionController::API
       response: response,
     }
   end
+
+  def jwt_params
+    params.require(:jwt)
+  end
 end

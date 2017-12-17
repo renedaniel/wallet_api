@@ -9,7 +9,11 @@ module Api::V1
       })
       @user.account = @account
       raise Error::ValidationError.new(@user) unless @user.save
-      render_success @user
+      @token = Knock::AuthToken.new(payload: {sub: @user.id}).token
+      @response = {
+        jwt: @token,
+      }
+      render_success @response
     end
 
     def login_user_from_jwt

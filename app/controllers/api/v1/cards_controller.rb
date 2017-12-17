@@ -26,10 +26,6 @@ class Api::V1::CardsController < ApplicationController
     params.require(:card).permit(:card_number, :full_name, :expiration, :cvc)
   end
 
-  def jwt_params
-    params.require(:jwt)
-  end
-
   def card_id_params
     params.require(:card_id)
   end

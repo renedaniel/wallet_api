@@ -6,9 +6,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users
-      resources :cards #, :only => [:create, :delete] TODO check delete is not working
+      resources :cards #, :only => [:create, :delete] TODO check why delete is not working
       post 'is_logged_in' => 'users#login_user_from_jwt'
       post 'user_token' => 'user_token#create'
+      post 'deposit_to_account' => 'transactions#deposit_to_account'
+      post 'get_transactions' => 'transactions#get_transactions'
       get 'metadata' => 'metadatas#index'
     end
   end

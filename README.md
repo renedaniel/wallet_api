@@ -14,6 +14,10 @@ db:create db:migrate db:seed
 
 **Es necesario tener instalado Postgresql >= 6 **. (https://www.postgresql.org/download/) y Ruby on Rails >= 5. (http://rubyonrails.org/)
 
+Posteriormente, debes configurar los datos de conexión a la base de datos en
+
+*wallet_api/config/database.yml
+
 ### Iniciar el servidor de desarrollo
 ```sh
 rails server

@@ -222,4 +222,24 @@ translations = Translation.create([
     key: 'ph_form_amount',
     translation: 'Aquí la cantidad',
   },
+  {
+    key: 'amount_not_a_number_validation',
+    translation: 'Debes ingresar una cantidad válida',
+  },
+  {
+    key: 'bank_account_wrong_length_validation',
+    translation: 'La cuenta CLABE debe contener 18 digitos',
+  },
+  {
+    key: 'amount_balance_not_enough_validation',
+    translation: 'No cuentas con fondos suficientes',
+  },
+  {
+    key: 'account_number_account_not_found_validation',
+    translation: 'La cuenta que ingresaste no existe',
+  },
+  {
+    key: 'account_number_not_own_account_error_validation',
+    translation: 'No puedes transferir a tu propia cuenta',
+  },
 ])

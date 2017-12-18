@@ -54,7 +54,7 @@ class Transaction < ApplicationRecord
     @not_found_error = {
       card_id: [{error: "card_not_found", value: "Invalid"}],
     }
-    return @not_found_error unless @account
+    return @not_found_error unless @card
     false
   end
 
@@ -95,6 +95,11 @@ class Transaction < ApplicationRecord
       account_number: [{error: "account_not_found", value: "Invalid"}],
     }
     return @not_found_error unless @account
+    @user_account_id = @user.account.id
+    @not_own_account_error = {
+      account_number: [{error: "not_own_account_error", value: "Invalid"}],
+    }
+    return @not_own_account_error unless @user_account_id != @account.id
     false
   end
 

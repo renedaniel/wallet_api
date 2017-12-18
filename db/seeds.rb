@@ -51,7 +51,7 @@ test_user = User.new(
 test_user.rol = Rol.find_by_rol("c")
 
 test_user.account = Account.new({
-  account_number: rand(10000..999999),
+  account_number: 12345,
   balance: 0,
 })
 

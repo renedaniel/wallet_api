@@ -15,6 +15,9 @@ module Error::Handler
       rescue_from ValidationError do |e|
         respond(e.errors, e.status, e.message)
       end
+      rescue_from TransactionError do |e|
+        respond(e.errors, e.status, e.message)
+      end
     end
   end
 

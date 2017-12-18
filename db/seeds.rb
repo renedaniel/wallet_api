@@ -202,4 +202,24 @@ translations = Translation.create([
     key: 'label_form_amount',
     translation: '¿Cuánto vas a recargar?',
   },
+  {
+    key: 'label_form_bank_account',
+    translation: 'Ingresa la cuenta CLABE',
+  },
+  {
+    key: 'ph_form_bank_account',
+    translation: 'Aquí la cuenta CLABE',
+  },
+  {
+    key: 'label_form_account_number',
+    translation: 'Ingresa la cuenta a depositar',
+  },
+  {
+    key: 'ph_form_account_number',
+    translation: 'Aquí la cuenta a depositar',
+  },
+  {
+    key: 'ph_form_amount',
+    translation: 'Aquí la cantidad',
+  },
 ])

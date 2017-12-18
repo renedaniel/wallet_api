@@ -8,7 +8,7 @@ class Transaction < ApplicationRecord
   validates :fixed_rate, presence: true, numericality: true
   validates :total, presence: true, numericality: true
   validates :transaction_type, presence: true
-  validates :card_mask, presence: true
+  validates :bank_account, length: {is: 18}, allow_blank: true
 
   def self.get_data_for_account_transaction(data)
     @card = Card.get_decrypted(data[:card_id])
@@ -16,21 +16,86 @@ class Transaction < ApplicationRecord
     @user = User.find(@card.user_id)
     {
       card: @card,
-      quantites: self.calcQuantities(@amount.to_f),
+      quantites: calcQuantities(@amount.to_f),
       account: @user.account,
       user: @user,
     }
   end
 
-  def self.invalid_amount?(amount)
-    #TODO, make this reusable
-    @t = Transaction.new({amount: amount})
-    @t.valid?
-    @errors = @t.errors[:amount]
-    return false unless @errors.length > 0
+  def self.get_data_for_withdraw(data, jwt)
+    @amount = Encryptor::Handler.decrypt(data[:amount])
+    @user = User.get_user_from_jwt(jwt)
     {
-      amount: @errors,
+      quantites: calcQuantities(@amount.to_f),
+      bank_account: Encryptor::Handler.decrypt(data[:bank_account]),
+      user: @user,
     }
+  end
+
+  def self.get_data_for_transfer(data, jwt)
+    @amount = Encryptor::Handler.decrypt(data[:amount])
+    @user = User.get_user_from_jwt(jwt)
+    {
+      quantites: calcQuantities(@amount.to_f),
+      account_number: Encryptor::Handler.decrypt(data[:account_number]),
+      user: @user,
+    }
+  end
+
+  def self.is_invalid_deposit?(data, jwt)
+    @amount = Encryptor::Handler.decrypt(data[:amount])
+    @card_id = Encryptor::Handler.decrypt(data[:card_id])
+    #TODO improve this
+    @t = Transaction.new({amount: @amount})
+    @t.valid?
+    @errors = @t.errors.details.slice(:amount)
+    return @errors unless @errors.length == 0
+    @card = Card.find(@card_id)
+    @not_found_error = {
+      card_id: [{error: "card_not_found", value: "Invalid"}],
+    }
+    return @not_found_error unless @account
+    false
+  end
+
+  def self.is_invalid_withdraw?(data, jwt)
+    @amount = Encryptor::Handler.decrypt(data[:amount])
+    @bank_account = Encryptor::Handler.decrypt(data[:bank_account])
+    #TODO improve this
+    @t = Transaction.new({amount: @amount, bank_account: @bank_account})
+    @t.valid?
+    @errors = @t.errors.details.slice(:amount, :bank_account)
+    return @errors unless @errors.length == 0
+    @user = User.get_user_from_jwt(jwt)
+    @balance = @user.account.balance
+    @quantites = calcQuantities(@amount.to_f)
+    return false unless @quantites[:total] > @balance
+    {
+      amount: [{error: "balance_not_enough", value: "Invalid"}],
+    }
+  end
+
+  def self.is_invalid_transfer?(data, jwt)
+    @amount = Encryptor::Handler.decrypt(data[:amount])
+    @account_number = Encryptor::Handler.decrypt(data[:account_number])
+    #TODO improve this
+    @t = Transaction.new({amount: @amount, account_number: @account_number})
+    @t.valid?
+    @errors = @t.errors.details.slice(:amount, :account_number)
+    return @errors unless @errors.length == 0
+    @user = User.get_user_from_jwt(jwt)
+    @balance = @user.account.balance
+    @quantites = calcQuantities(@amount.to_f)
+    @balance_error = {
+      amount: [{error: "balance_not_enough", value: "Invalid"}],
+    }
+    return @balance_error unless @quantites[:total] < @balance
+    @account = Account.find_by_account_number(@account_number)
+    @not_found_error = {
+      account_number: [{error: "account_not_found", value: "Invalid"}],
+    }
+    return @not_found_error unless @account
+    false
   end
 
   private

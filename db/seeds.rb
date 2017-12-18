@@ -38,6 +38,25 @@ admin.account = Account.new({
 
 admin.save
 
+test_user = User.new(
+  {
+    first_name: 'Fulanito',
+    last_name: 'Perengano',
+    email: 'test@test.com',
+    password: '123',
+    password_confirmation: '123',
+  }
+)
+
+test_user.rol = Rol.find_by_rol("c")
+
+test_user.account = Account.new({
+  account_number: rand(10000..999999),
+  balance: 0,
+})
+
+test_user.save
+
 transaction_types = TransactionType.create(
   [
     {

@@ -19,6 +19,25 @@ rols = Rol.create(
   ]
 )
 
+admin = User.new(
+  {
+    first_name: 'Admin',
+    last_name: 'Admin',
+    email: 'admin@admin.com',
+    password: '123',
+    password_confirmation: '123',
+  }
+)
+
+admin.rol = Rol.find_by_rol("a")
+
+admin.account = Account.new({
+  account_number: rand(10000..999999),
+  balance: 0,
+})
+
+admin.save
+
 transaction_types = TransactionType.create(
   [
     {

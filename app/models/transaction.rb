@@ -106,10 +106,12 @@ class Transaction < ApplicationRecord
   private
 
   def save_money
-    #TODO Save earnings
+    #Save earnings
     @admin_rol = Rol.find_by_rol("a")
     @master_user = User.find_by_rol_id(@admin_rol.id)
-    #@master_account = @master_user.account
+    @master_account = @master_user.account
+    @new_master_balance = @master_account.balance + self.fixed_rate + self.commission_amount
+    @master_account.update_attributes({balance: @new_master_balance})
     #Save new user balance
     @user_account = User.find(self.user_id).account
     @new_user_balance = self.amount + @user_account.balance

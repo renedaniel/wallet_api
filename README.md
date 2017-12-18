@@ -1,24 +1,21 @@
-# README
+# Wallet Api
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Wallet Api contiene el servicio rest para la aplicación Wallet
 
-Things you may want to cover:
+## Getting Started
 
-* Ruby version
+### Installation
 
-* System dependencies
+Al iniciar por primera vez, es necesario ejecutar los siguientes comandos
+```sh
+bundle install
+db:create db:migrate db:seed
+```
 
-* Configuration
+**Es necesario tener instalado Postgresql >= 6 **. (https://www.postgresql.org/download/) y Ruby on Rails >= 5. (http://rubyonrails.org/)
 
-* Database creation
+### Iniciar el servidor de desarrollo
+```sh
+rails server
+```
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

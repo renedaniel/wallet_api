@@ -4,7 +4,7 @@ Wallet Api contiene el servicio rest para la aplicación Wallet
 
 ## Getting Started
 
-### Installation
+### Instalación
 
 Al iniciar por primera vez, es necesario ejecutar los siguientes comandos
 ```sh
